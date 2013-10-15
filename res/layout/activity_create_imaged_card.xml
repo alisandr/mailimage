@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageButton
+                android:id="@+id/card_image_submit_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </FrameLayout>
+
+
+    <TextView
+            android:text="@string/email_annotation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <EditText
+            android:id="@+id/create_email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    <TextView
+            android:text="@string/subject_annotation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <EditText
+            android:id="@+id/create_subject_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    <TextView
+            android:text="@string/body_annotation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <EditText
+            android:id="@+id/create_body_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <Button
+            android:id="@+id/create_share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+</LinearLayout>
+
