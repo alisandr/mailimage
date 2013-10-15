@@ -7,12 +7,10 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import com.kozhurov.R;
-import ui.dialogs.UniversalAlertDialog;
 
 import java.util.List;
 
@@ -21,20 +19,6 @@ import java.util.List;
  * Date: 14.10.13
  */
 public class ActivityBase extends Activity {
-
-    protected void showUniversalDialog(String title, String text) {
-        UniversalAlertDialog universalAlertDialog = new UniversalAlertDialog();
-        Bundle bundle = new Bundle();
-        bundle.putString(UniversalAlertDialog.DIALOG_TITLE, title);
-        bundle.putString(UniversalAlertDialog.DIALOG_TEXT, text);
-        universalAlertDialog.setArguments(bundle);
-        universalAlertDialog.setCancelable(false);
-        universalAlertDialog.show(getActivity().getSupportFragmentManager(), null);
-    }
-
-    protected void showUniversalDialog(int titleId, int textId) {
-        showUniversalDialog(getString(titleId), getString(textId));
-    }
 
     protected void hideSoftKeyboard(View view) {
         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -70,7 +54,4 @@ public class ActivityBase extends Activity {
         List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
         return activities.size() > 0;
     }
-
-
-
 }

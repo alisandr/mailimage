@@ -1,18 +1,22 @@
 package ui.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.kozhurov.R;
+import model.UserImageCard;
+import ui.BundleConstants;
+import ui.adapters.AdapterUserCard;
+import ui.dialogs.DialogClean;
+import ui.dialogs.DialogConfirm;
 import ui.dialogs.UserChoiceListener;
 import utils.DataBaseApi;
 
-/**
- * User: Андрей
- * Date: 14.10.13
- */
+import java.util.List;
+
 public class ActivityMain extends ActivityBase {
 
     private long mCardIdForDelete;
@@ -20,7 +24,6 @@ public class ActivityMain extends ActivityBase {
     private ListView mCardListView;
 
     private UserChoiceListener mChoiceListener;
-    //private
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +41,21 @@ public class ActivityMain extends ActivityBase {
         mCardListView = (ListView) findViewById(R.id.main_card_list_view);
         mCardListView.setOnItemClickListener(new ItemClicker());
         mCardListView.setOnItemLongClickListener(new ItemLongClicker());
+        mCardListView.setEmptyView(findViewById(R.id.main_empty_list_text));
+
     }
 
     private void initVariables() {
         mCardIdForDelete = -1;
         mChoiceListener = new DialogCallBack();
+        List<UserImageCard> allCards = DataBaseApi.getDataBaseApi(getApplicationContext()).getAllCards();
+        mCardListView.setAdapter(new AdapterUserCard(getApplicationContext(), allCards));
+    }
+
+    private void startImageCardCreatorActivity() {
+        Intent intent = new Intent(getApplicationContext(), ActivityImageCardCreator.class);
+        intent.putExtra(BundleConstants.CARD_RECORD_ID.getValue(), mCardIdForDelete);
+        startActivity(intent);
     }
 
     private class Clicker implements View.OnClickListener {
@@ -51,8 +64,12 @@ public class ActivityMain extends ActivityBase {
         public void onClick(View pView) {
             switch (pView.getId()) {
                 case R.id.main_add_new_card_button:
+                    startImageCardCreatorActivity();
                     break;
+
                 case R.id.main_remove_all_card_button:
+                    DialogClean cleanDialog = new DialogClean();
+                    cleanDialog.setChoiceListener(mChoiceListener);
                     break;
             }
 
@@ -63,7 +80,9 @@ public class ActivityMain extends ActivityBase {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            UserImageCard selectedCard = (UserImageCard) parent.getItemAtPosition(position);
+            mCardIdForDelete = selectedCard.getDataBaseId();
+            startImageCardCreatorActivity();
         }
     }
 
@@ -71,7 +90,9 @@ public class ActivityMain extends ActivityBase {
 
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-            return false;
+            DialogConfirm dialogConfirm = new DialogConfirm();
+            dialogConfirm.setChoiceListener(mChoiceListener);
+            return true;
         }
     }
 
@@ -87,9 +108,7 @@ public class ActivityMain extends ActivityBase {
 
         @Override
         public void deleteSingleCard() {
-            if (mCardIdForDelete != -1) {
-                mBaseApi.deleteTargetCard(mCardIdForDelete);
-            }
+            mBaseApi.deleteTargetCard(mCardIdForDelete);
             Toast.makeText(getApplicationContext(), R.string.success, Toast.LENGTH_SHORT).show();
         }
     }

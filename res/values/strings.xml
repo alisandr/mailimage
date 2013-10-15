@@ -7,9 +7,9 @@
     <string name="address">Address</string>
 
     <string name="image_annotation">Add photo</string>
-    <string name="email_annotation">E-mail:</string>
-    <string name="subject_annotation">Subject:</string>
-    <string name="body_annotation">Body:</string>
+    <string name="new_card_email_annotation">E-mail:</string>
+    <string name="new_card_subject_annotation">Subject:</string>
+    <string name="new_card_body_annotation">Body:</string>
     <string name="main_activity_annotation">Drafts and sent messages</string>
 
     <string name="something_went_wrong">Something went wrong. Please check internet connection and try again.</string>

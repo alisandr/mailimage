@@ -47,16 +47,30 @@ public class DataBaseApi {
     }
 
     public static void deleteTargetCard(long pCardId) {
-        String where = new StringBuilder(DBHelper.CARD_ID).append(" = ").append(pCardId).toString();
+        String where = getWhereString(pCardId);
         mDatabase = mHelper.getWritableDatabase();
         mDatabase.delete(DBHelper.TABLE_NAME, where, null);
         mDatabase.close();
+    }
+
+    private static String getWhereString(long pCardId) {
+        return new StringBuilder(DBHelper.CARD_ID).append(" = ").append(pCardId).toString();
     }
 
     public static long insertNewCard(UserImageCard pImageCard) {
         ContentValues cv = packingCardToCv(pImageCard);
         mDatabase = mHelper.getWritableDatabase();
         return mDatabase.insertWithOnConflict(DBHelper.TABLE_NAME, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
+    }
+
+    public static UserImageCard getTargetCard(long recordId) {
+        mDatabase = mHelper.getReadableDatabase();
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_NAME, null, getWhereString(recordId), null, null, null, null);
+        List<UserImageCard> result = unpackingCursorToUserCards(cursor);
+        if(result.isEmpty()){
+            return null;
+        }
+        return result.get(0);
     }
 
     private static ContentValues packingCardToCv(UserImageCard pImageCard) {

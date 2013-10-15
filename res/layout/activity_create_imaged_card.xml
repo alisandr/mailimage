@@ -9,46 +9,46 @@
             android:layout_height="wrap_content">
 
         <ImageButton
-                android:id="@+id/card_image_submit_button"
+                android:id="@+id/new_card_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
     </FrameLayout>
 
 
     <TextView
-            android:text="@string/email_annotation"
+            android:text="@string/new_card_email_annotation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
     <EditText
-            android:id="@+id/create_email_edit_text"
+            android:id="@+id/new_card_create_email_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
 
     <TextView
-            android:text="@string/subject_annotation"
+            android:text="@string/new_card_subject_annotation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
     <EditText
-            android:id="@+id/create_subject_edit_text"
+            android:id="@+id/new_card_create_subject_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
 
     <TextView
-            android:text="@string/body_annotation"
+            android:text="@string/new_card_body_annotation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
     <EditText
-            android:id="@+id/create_body_edit_text"
+            android:id="@+id/new_card_create_body_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
     <Button
-            android:id="@+id/create_share_button"
+            android:id="@+id/new_card_create_share_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 

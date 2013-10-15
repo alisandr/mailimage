@@ -13,9 +13,9 @@ import utils.ImageHelper;
 
 import java.util.List;
 
-public class MainUserImageCardAdapter extends ArrayAdapter<UserImageCard> {
+public class AdapterUserCard extends ArrayAdapter<UserImageCard> {
 
-    public MainUserImageCardAdapter(Context pContext, List<UserImageCard> pUserImageCards) {
+    public AdapterUserCard(Context pContext, List<UserImageCard> pUserImageCards) {
         super(pContext, 0, pUserImageCards);
     }
 
@@ -25,7 +25,7 @@ public class MainUserImageCardAdapter extends ArrayAdapter<UserImageCard> {
         UserImageCard userImageCard;
 
         if (convertView == null) {
-            convertView = View.inflate(getContext(), R.layout.card_list_item, null);
+            convertView = View.inflate(getContext(), R.layout.list_card_item, null);
             cardHolder = new CardHolder();
 
             cardHolder.mCardImage = (ImageView) convertView.findViewById(R.id.list_card_image_image_view);
