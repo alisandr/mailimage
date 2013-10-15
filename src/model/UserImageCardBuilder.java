@@ -41,6 +41,14 @@ public class UserImageCardBuilder {
         return buildCard();
     }
 
+    public UserImageCard buildNoneNullImageCard(){
+        mImageUri = "";
+        mEmail = "";
+        mSubject = "";
+        mBody = "";
+        return buildCard();
+    }
+
 
     private UserImageCard buildCard(){
         return new UserImageCard(this);
