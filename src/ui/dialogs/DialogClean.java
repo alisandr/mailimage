@@ -12,7 +12,13 @@ public class DialogClean extends DialogBase {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.dialog_clean, null);
+        initViews();
+        return view;
+    }
+
+    private void initViews() {
+        addListenersToElements(new Clicker());
     }
 
     private class Clicker implements View.OnClickListener {

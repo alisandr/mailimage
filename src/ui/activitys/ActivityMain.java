@@ -48,8 +48,17 @@ public class ActivityMain extends ActivityBase {
     private void initVariables() {
         mCardIdForDelete = -1;
         mChoiceListener = new DialogCallBack();
-        List<UserImageCard> allCards = DataBaseApi.getDataBaseApi(getApplicationContext()).getAllCards();
-        mCardListView.setAdapter(new AdapterUserCard(getApplicationContext(), allCards));
+    }
+
+    private void initAdapterData(){
+        List<UserImageCard> allCardsList = DataBaseApi.getDataBaseApi(getApplicationContext()).getAllCards();
+        mCardListView.setAdapter(new AdapterUserCard(getApplicationContext(), allCardsList));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initAdapterData();
     }
 
     private void startImageCardCreatorActivity() {

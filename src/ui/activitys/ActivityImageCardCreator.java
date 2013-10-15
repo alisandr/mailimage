@@ -12,22 +12,13 @@ import ui.BundleConstants;
 import utils.DataBaseApi;
 import utils.ImageHelper;
 
-/**
- * User: andrey
- * Date: 15.10.13
- */
 public class ActivityImageCardCreator extends ActivityBase {
 
     private static final long NO_DB_RECORD_ID = -1;
-
     private EditText mMailEditText;
-
     private EditText mSubjectEditText;
-
     private EditText mBodyEditText;
-
     private ImageView mCardImageView;
-
     private UserImageCard mUserImageCard;
 
     @Override
@@ -73,8 +64,7 @@ public class ActivityImageCardCreator extends ActivityBase {
         if (mUserImageCard == null) {
             return;
         }
-
-        onBackPressed();
+        DataBaseApi.getDataBaseApi(getApplicationContext()).insertNewCard(mUserImageCard);
     }
 
     private UserImageCard reviewFieldsAndRunBuilder() {
@@ -88,35 +78,29 @@ public class ActivityImageCardCreator extends ActivityBase {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-       saveCardInDB();
+        finish();
     }
 
-    private void saveCardInDB(){
-        DataBaseApi.getDataBaseApi(getApplicationContext()).insertNewCard(mUserImageCard);
-    }
-
-    private void shareCard(){
-        private Intent buildShareIntent() {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType(INTENT_TYPE);
-            intent.putExtra(Intent.EXTRA_STREAM, getSharedImageUri());
-            return intent;
-        }
-    }
-
-
-    private void sharePhoto() {
+    private void shareCard() {
         Intent intent = buildShareIntent();
         Intent.createChooser(intent, "");
         startActivity(intent);
+    }
+
+    private Intent buildShareIntent() {
+        //TODO comlete mail intent extra fields
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType(INTENT_TYPE);
+        intent.putExtra(Intent.EXTRA_STREAM, getSharedImageUri());
+        return intent;
     }
 
     private class Clicker implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
-           saveCardInDB();
+            saveCardExecute();
+            shareCard();
 
         }
     }

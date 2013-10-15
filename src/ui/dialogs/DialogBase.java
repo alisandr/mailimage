@@ -11,14 +11,7 @@ import com.kozhurov.R;
 
 public class DialogBase extends DialogFragment {
 
-    private UserChoiceListener mChoiceListener;
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_confirm, null);
-        return view;
-    }
+    protected UserChoiceListener mChoiceListener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -31,4 +24,9 @@ public class DialogBase extends DialogFragment {
         mChoiceListener = pChoiceListener;
     }
 
+    protected void addListenersToElements(View.OnClickListener pListener){
+
+        getView().findViewById(R.id.dialog_no_button).setOnClickListener(pListener);
+        getView().findViewById(R.id.dialog_yes_button).setOnClickListener(pListener);
+    }
 }
