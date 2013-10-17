@@ -18,9 +18,9 @@ public class DataBaseApi {
 
     private static DataBaseApi sApi;
 
-    private static DBHelper mHelper;
+    private DBHelper mHelper;
 
-    private static SQLiteDatabase mDatabase;
+    private SQLiteDatabase mDatabase;
 
     private DataBaseApi(Context pContext) {
         mHelper = new DBHelper(pContext);
@@ -33,37 +33,37 @@ public class DataBaseApi {
         return sApi;
     }
 
-    public static void deleteAllCards() {
+    public void deleteAllCards() {
         mDatabase = mHelper.getWritableDatabase();
         mDatabase.delete(DBHelper.TABLE_NAME, null, null);
         mDatabase.close();
     }
 
-    public static List<UserImageCard> getAllCards() {
+    public List<UserImageCard> getAllCards() {
         mDatabase = mHelper.getReadableDatabase();
         Cursor cursor = mDatabase.query(DBHelper.TABLE_NAME, null, null, null, null, null, null);
         mDatabase.close();
         return unpackingCursorToUserCards(cursor);
     }
 
-    public static void deleteTargetCard(long pCardId) {
+    public void deleteTargetCard(long pCardId) {
         String where = getWhereString(pCardId);
         mDatabase = mHelper.getWritableDatabase();
         mDatabase.delete(DBHelper.TABLE_NAME, where, null);
         mDatabase.close();
     }
 
-    private static String getWhereString(long pCardId) {
+    private String getWhereString(long pCardId) {
         return new StringBuilder(DBHelper.CARD_ID).append(" = ").append(pCardId).toString();
     }
 
-    public static long insertNewCard(UserImageCard pImageCard) {
+    public long insertNewCard(UserImageCard pImageCard) {
         ContentValues cv = packingCardToCv(pImageCard);
         mDatabase = mHelper.getWritableDatabase();
         return mDatabase.insertWithOnConflict(DBHelper.TABLE_NAME, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
-    public static UserImageCard getTargetCard(long recordId) {
+    public UserImageCard getTargetCard(long recordId) {
         mDatabase = mHelper.getReadableDatabase();
         Cursor cursor = mDatabase.query(DBHelper.TABLE_NAME, null, getWhereString(recordId), null, null, null, null);
         List<UserImageCard> result = unpackingCursorToUserCards(cursor);
@@ -73,7 +73,7 @@ public class DataBaseApi {
         return result.get(0);
     }
 
-    private static ContentValues packingCardToCv(UserImageCard pImageCard) {
+    private ContentValues packingCardToCv(UserImageCard pImageCard) {
         ContentValues values = new ContentValues();
         values.put(DBHelper.CARD_IMAGE_URI, pImageCard.getImageUri());
         values.put(DBHelper.CARD_OPPONENT_EMAIL, pImageCard.getEmail());
@@ -82,7 +82,7 @@ public class DataBaseApi {
         return values;
     }
 
-    private static List<UserImageCard> unpackingCursorToUserCards(Cursor pCursor) {
+    private List<UserImageCard> unpackingCursorToUserCards(Cursor pCursor) {
         List<UserImageCard> cards = new ArrayList<UserImageCard>();
         if (!pCursor.moveToFirst()) {
             return cards;

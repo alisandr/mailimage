@@ -88,7 +88,7 @@ public class ActivityImageCardCreator extends ActivityBase {
     }
 
     private Intent buildShareIntent() {
-        //TODO comlete mail intent extra fields
+        //TODO comlete mail intent extra fields and complete mail
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType(INTENT_TYPE);
         intent.putExtra(Intent.EXTRA_STREAM, getSharedImageUri());
